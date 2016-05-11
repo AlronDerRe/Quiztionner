@@ -55,7 +55,7 @@ class Updater():
 		
 		self.messageToSendBackToClient = "La question a bien été reçue !/1" #Message de retour
 		print(QandR)
-		self.DBB.addQuestion(QandR[0], QandR[1], QandR[2], 1)
+		self.DBB.addQuestion(QandR[0], QandR[1], QandR[2], 2)
 
 	def receivedQuestionAsking(self):
 		print('dacc')

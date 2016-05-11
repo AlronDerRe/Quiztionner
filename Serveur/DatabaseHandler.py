@@ -22,7 +22,7 @@ class DatabaseHandler:
         """)
         
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS TB2(
-        id INTEGER,
+        id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
         question TEXT,
         answer1 TEXT,
         answer2 TEXT
