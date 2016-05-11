@@ -14,7 +14,6 @@ class ClientUpdater():
                 self.updateQuestion(data, menuSwitch)
             if name == 'receivedScore':
                 self.updateScore(data, menuSwitch)
-                print('sdggggg------')
 
     def updateQuestion(self,dataList,menuSwitch):
         print (dataList[0])
