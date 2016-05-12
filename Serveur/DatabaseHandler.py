@@ -68,9 +68,7 @@ class DatabaseHandler:
 
 
     def addScore(self, id, n):
-        print('ok')
         if n == 1:
-            print('ok1')
             self.cursor.execute("SELECT score1 FROM TB1 WHERE id=?", (id,))
             s = int(self.cursor.fetchone()[0]) + 1
             
@@ -78,7 +76,6 @@ class DatabaseHandler:
 
 
         elif n == 2:
-            print('ok2')
             self.cursor.execute("""SELECT score2 FROM TB1 WHERE id=?""", (id,))
             s = int(self.cursor.fetchone()[0])+1   
 

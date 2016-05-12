@@ -60,17 +60,19 @@ class ServerLoopers(Thread):
                                         
                                         for j in range(len(messageList)):
                                                 print('---------DEBUT RECU----------')
-                                                print(messageList[j])
                                                 a, b = self.dataHandlerList[i].splitPacketNameAndDatas(messageList[j])
                                                 self.U.updateServerInfos(a, b)
-                                                
                                                 backMsg = self.U.getMessageToSendBack()
                                                 print('---------FIN RECU----------')
+
                                                 if len(backMsg) > 0: 
+                                                        print('-----------ENVOI-----------')
                                                         reponse = '$0000000000' + backMsg + '%'#Recuperation du messages à reenvoyer en fonction de la demande.
-                                                        print(reponse)
+                                                        print('Message envoyé : ' + reponse)
                                                         final = reponse.encode('utf-8')
                                                         self.clientsList[i].send(final) #envoi
+                                                        print('---------FIN ENVOI---------')
+                                                        print(' ')
                                                 
                                         
                                         
