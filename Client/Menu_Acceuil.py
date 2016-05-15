@@ -12,6 +12,7 @@ class Menu_Acceuil(Menu_General):
         self.b1 = Bouton('image/BMR.png',90,235)
         self.b2 = Bouton('image/BMP.png',90,375)
         self.b3 = Bouton('image/BMQ.png',715,515)
+        self.logo = Bouton('image/logo.png',100,59)
         #Image et coordonné de chaque bouton du menu
 
 
@@ -42,3 +43,4 @@ class Menu_Acceuil(Menu_General):
         self.b2.display(surface)
         self.b1.display(surface)
         self.b3.display(surface)
+        self.logo.display(surface)
