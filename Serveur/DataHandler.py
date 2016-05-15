@@ -2,13 +2,13 @@ import socket
 
 class DataHandler():
 
-	def __init__(self):
+	def __init__(self): #initialisation des variables
 		self.receivedMessage = []
 		self.currentMessage = ""
 		self.currentMessageToComplete = -1
 		self.decodedMessages = []
 
-	def getIncomingDatas(self,socket): #Thread qui affiche les messages reçu si pas de message, on recommence : "pass" ligne 22.
+	def getIncomingDatas(self,socket):  #Récupération de la séquence reçu puis isolation du message (on enlève les $0000000000 et %)
 			try:
 				self.decodedMessages = []
 				mess = socket.recv(1024)
@@ -31,12 +31,12 @@ class DataHandler():
 
 				self.receivedMessage = []
 
-				return self.decodedMessages
+				return self.decodedMessages #Message reçu isolé
 
 			except:
-				return self.decodedMessages
+				return self.decodedMessages #Si la manoeuvre a échouée, on renvoi un message vide.
 
-	def splitPacketNameAndDatas(self, message):
+	def splitPacketNameAndDatas(self, message): #Séparation titre message et arguments
 		char = ''
 		packetName = ""
 		datas = ""

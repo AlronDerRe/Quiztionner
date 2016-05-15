@@ -7,13 +7,11 @@ class Updater():
 
 	def __init__(self):
 		print("Instance de PacketSelector")
-		self.DBB = DatabaseHandler('DATABASE')
+		self.DBB = DatabaseHandler('DATABASE') #Création ou connexion à la base de donnée
 
-		l = self.DBB.getIDs(1)
-		print(l)
 		self.messageToSendBackToClient = ''
 
-	def getMessageToSendBack(self):
+	def getMessageToSendBack(self): #on retourne le message à réenvoyer
 		r = self.messageToSendBackToClient
 		self.messageToSendBackToClient = ''
 		return r
@@ -38,22 +36,21 @@ class Updater():
 
 	#FONCTIONS UTILISANT LA BASE DE DONNEES -----------------------------------------------------------------------------------------------
 
-	def receivedAnswer(self, answer): #Reçoit un message demandant de renvoyer une question à laquelle répondre au client.
+	def receivedAnswer(self, answer): #Reçoit un message contenant la réponse d'un utilisateur
 		questionID = int(answer[0])
 		questionAnswer = int(answer[1])
 
-		self.DBB.addScore(questionID, questionAnswer)
+		self.DBB.addScore(questionID, questionAnswer) #Actualisation de la base
 		print('Vote ajouté à la réponse %s de la question numéro %s'% (questionAnswer, questionID))
 
-		#self.messageToSendBackToClient = "La réponse a bien été enregistrée !" #ICI on renverra un message contenant les informations de score relatif à cette question
-
+		
 	def receivedQuestion(self, questionAndAnswers): #Ajout d'une question à la base de donnée préalablement passé par un filtre anti insulte,... inclu dans le code client.
 		QandR = [questionAndAnswers[0], questionAndAnswers[1], questionAndAnswers[2]]
 		print(QandR)
-		self.DBB.addQuestion(QandR[0], QandR[1], QandR[2], 2)
+		self.DBB.addQuestion(QandR[0], QandR[1], QandR[2], 2) #Actualisation de la base
 
-	def receivedQuestionAsking(self):
-		ID = int(self.DBB.randomID(self.DBB.getIDs(1)))
+	def receivedQuestionAsking(self): #Récupération d'une question au hasard
+		ID = int(self.DBB.randomID(self.DBB.getIDs(1))) #On tire un ID au sort dans la base
 		tab = self.DBB.searchQuestion(ID, 1) #Recuperation d'un ID de question au hasard dans la liste de la BDD puis on récup la quesiton
 		self.messageToSendBackToClient = "sendedQuestion/%s/%s/%s/%s" % (ID, tab[0], tab[1], tab[2])
 		print('Envoi de la question numéro : %s' %(ID))

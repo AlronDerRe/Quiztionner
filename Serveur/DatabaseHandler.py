@@ -5,7 +5,7 @@ import random
 class DatabaseHandler:
 
 
-    def __init__(self, name):
+    def __init__(self, name): #Création de la base si elle n'existe pas déjà. Elle comporte la tableu TB1 et TB2
 
         dbName = name + ".db"
         self.conn = sqlite3.connect(dbName)
@@ -32,7 +32,7 @@ class DatabaseHandler:
         self.conn.commit()
 
 
-    def addQuestion(self, q, a1, a2, n):
+    def addQuestion(self, q, a1, a2, n): #Simple ajout d'une question à la base de donnée
 
         if n == 1:
           
@@ -59,7 +59,7 @@ class DatabaseHandler:
             print("Unknown table.")
 
 
-    def deleteQuestion(self, id, n):
+    def deleteQuestion(self, id, n):#Supprimer une ligne de la table TBn en fonction id
 
         tbName = "TB" + str(n)
         self.cursor.execute("DELETE FROM {} WHERE id=?".format(tbName), (id,))
@@ -67,7 +67,7 @@ class DatabaseHandler:
         self.conn.commit()
 
 
-    def addScore(self, id, n):
+    def addScore(self, id, n):#On récupère le score1 ou le score2 présent on l'incrémente et le réenvoi à la base.
         if n == 1:
             self.cursor.execute("SELECT score1 FROM TB1 WHERE id=?", (id,))
             s = int(self.cursor.fetchone()[0]) + 1
@@ -84,7 +84,7 @@ class DatabaseHandler:
         self.conn.commit()
 
 
-    def searchQuestion(self, id, n):
+    def searchQuestion(self, id, n): #Récuperer une question de TBn en fonction de son id
 
         tbName = "TB" + str(n)
 
@@ -103,7 +103,7 @@ class DatabaseHandler:
             return q
 
 
-    def searchScore(self, id):
+    def searchScore(self, id): #Récuperer les scores à une question via son id
 
         self.cursor.execute("""SELECT score1, score2 FROM TB1 WHERE id=?""", (id,))
         score = self.cursor.fetchone()
@@ -111,8 +111,8 @@ class DatabaseHandler:
         return score
 
 
-    def getIDs(self, n):
-
+    def getIDs(self, n): #Récuperer tout les id de la table TBn
+ 
         tbName = "TB" + str(n)
         self.cursor.execute("SELECT id FROM {} ORDER BY id ASC".format(tbName))
         l = list(self.cursor.fetchall())
@@ -125,6 +125,6 @@ class DatabaseHandler:
         return ids
 
 
-    def randomID(self, l):
+    def randomID(self, l): #choix d'un élément d'une liste en loccurence, utilisée avec la liste d'id.
 
         return random.choice(l)

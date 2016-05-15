@@ -24,7 +24,7 @@ class ServerLoopers(Thread):
         def run(self): #méthode threadé
                 self.server = socket.socket() #creation du socket serveur
                 self.server.bind(self.servAdr) #Bind du socket sur l'ip et le port défini plus tôt
-                self.server.listen(5) #On attent 5 connexionx maximum. Variera par la suite
+                self.server.listen(5) #On attent 5 connexionx maximum. Due à la restriction d'Hamachi.
                 while True: #Boucle utilisé pour la connexion de nouveaux clients en parallèle du traitement des données reçu par les clients déjà connectés.
                         client, adr = self.server.accept() #Check si il y a une demande de connexion, si oui on l'accepte.
                         client.setblocking(0) #On passe le socket du client en mode non bloquand a fin de pouvoir en gérer plusieurs sans attente.
@@ -54,20 +54,20 @@ class ServerLoopers(Thread):
                                         self.clientsAdresses.remove(self.clientsAdresses[i])
                                         self.dataHandlerList.remove(self.dataHandlerList[i])
                                         break
-                                try: #Si on reçoit un message du client alors on traite ce message via la classe DataHandler dont D est une instance sinon on passe car on a rien reçu.
+                                try: #Si on reçoit un message du client alors on traite ce message via la classe DataHandler associé à chaque client
                                                                              
-                                        messageList = self.dataHandlerList[i].getIncomingDatas(self.clientsList[i])
+                                        messageList = self.dataHandlerList[i].getIncomingDatas(self.clientsList[i]) #On récupère le message si il a été reçu entièrement
                                         
-                                        for j in range(len(messageList)):
+                                        for j in range(len(messageList)): #On parcourt le message reçu entièrement
                                                 print('---------DEBUT RECU----------')
-                                                a, b = self.dataHandlerList[i].splitPacketNameAndDatas(messageList[j])
-                                                self.U.updateServerInfos(a, b)
-                                                backMsg = self.U.getMessageToSendBack()
+                                                a, b = self.dataHandlerList[i].splitPacketNameAndDatas(messageList[j]) #Extraction des infos qu'il contient
+                                                self.U.updateServerInfos(a, b) #actualisation de la base de donnée
+                                                backMsg = self.U.getMessageToSendBack() #Récupération du message de retour
                                                 print('---------FIN RECU----------')
 
-                                                if len(backMsg) > 0: 
+                                                if len(backMsg) > 0: #Si on a un message a réenvoyer alors on l'envoi.
                                                         print('-----------ENVOI-----------')
-                                                        reponse = '$0000000000' + backMsg + '%'#Recuperation du messages à reenvoyer en fonction de la demande.
+                                                        reponse = '$0000000000' + backMsg + '%'
                                                         print('Message envoyé : ' + reponse)
                                                         final = reponse.encode('utf-8')
                                                         self.clientsList[i].send(final) #envoi

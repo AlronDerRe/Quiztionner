@@ -2,11 +2,11 @@ from DatabaseHandler import DatabaseHandler
 
 
 dbName = input("Give a database name: ")
-db = DatabaseHandler(dbName)
+db = DatabaseHandler(dbName) #Connexion a la base de donnée
 
-l = db.getIDs(2)
+l = db.getIDs(2) #récupération des ID
 
-if len(l) > 0:
+if len(l) > 0: #Boucle simple pour permettre à l'utilisateur d'accepter ou non d'ajouter une question proposée à la base générale (à la table TB1).
 
     for i in l:
 
