@@ -6,7 +6,7 @@ from pygame.locals import *
 
 class TextBar:
 
-    def __init__(self,posX,posY,t, chemin):
+    def __init__(self,posX,posY,t, chemin): #Initialisation des composantes.
         self.posX = posX
         self.posY = posY
         self.text = t
@@ -15,14 +15,14 @@ class TextBar:
         self.Write = False
 
 
-    def checkEvent(self):
+    def checkEvent(self): #On vérifie si la barre est sélectionnée(via un bouton), si on pourra écrire dedans. 
         self.b.checkEvent()
         self.Write = self.b.hasFocus()
 
-    def checkEventBis(self,evt) :
+    def checkEventBis(self,evt) : #Récupération des entrées clavier dans le cadre d'une saisie de texte.
         if self.Write == True :
             if evt.type == KEYDOWN:
-                if evt.unicode.isalpha() and evt.unicode != '$' and evt.unicode != '%':
+                if evt.unicode.isalpha() and evt.unicode != '$' and evt.unicode != '%': #On ne permet pas d'écrire les signes $ et % du fait de leur utilisation dans la syntaxe réseau
                     self.text += evt.unicode
                 elif evt.unicode.isdigit():
                     self.text += evt.unicode
@@ -36,15 +36,15 @@ class TextBar:
                     self.text = self.text[:-1]
 
 
-                self.t = Text(self.posX+self.b.getBoutonSizeX()/2,self.posY+self.b.getBoutonSizeY()/2, self.text,35)
+                self.t = Text(self.posX+self.b.getBoutonSizeX()/2,self.posY+self.b.getBoutonSizeY()/2, self.text,35) #Replacement du texte après ajout/retrait de lettres
 
-    def resetText(self):
+    def resetText(self): #Remise à 0 de la textBar
         self.text = ''
         self.t = Text(self.posX+self.b.getBoutonSizeX()/2,self.posY+self.b.getBoutonSizeY()/2, self.text,35)
 
-    def getText(self):
+    def getText(self): #getter
         return self.text
 
-    def display(self, surface):
+    def display(self, surface): #Affichage
         self.b.display(surface)
         self.t.display(surface)

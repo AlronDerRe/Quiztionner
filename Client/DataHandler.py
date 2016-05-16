@@ -1,6 +1,6 @@
 import socket
 
-class DataHandler():
+class DataHandler(): #Classe déjà commentée dans le serveur (il s'agit exactement de la même)
 
 	def __init__(self):
 		self.receivedMessage = []
@@ -8,7 +8,7 @@ class DataHandler():
 		self.currentMessageToComplete = -1
 		self.decodedMessages = []
 
-	def getIncomingDatas(self,socket): #Thread qui affiche les messages reçu si pas de message, on recommence : "pass" ligne 22.
+	def getIncomingDatas(self,socket):
 			try:
 				self.decodedMessages = []
 				mess = socket.recv(1024)

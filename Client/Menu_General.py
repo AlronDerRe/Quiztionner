@@ -1,5 +1,5 @@
 class Menu_General:
-    '''Cette class est ajouter à toutes les autre class menu'''
+    '''Cette classe est la superclasse de toutes les autre classes des menus'''
     def __init__(self):
         self.nextChoiceMenu #Variable du choix du prochain menu
         self.indiceFix #Sauvegarde de l’indice

@@ -54,10 +54,10 @@ class Menu_Reponse(Menu_General):
         else :
             self.popupScore.checkEvent()
 
-    def checkEventBis(self,evt):
+    def checkEventBis(self,evt): #Fonction factice ici, on n'a pas d'entrée clavier à gérer
         1+1
 
-    def checkDataToSend(self,dt):
+    def checkDataToSend(self,dt): #Vérification des données à envoyer en fonction des choix de l'utilisateur.
         if self.needQ == True :
             dt.addDataToSend('$0000000000QuestionAsk/a%')
             self.needQ = False

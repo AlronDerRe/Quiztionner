@@ -3,7 +3,7 @@ from Text import Text
 
 class PopupScore():
 
-    def __init__(self):
+    def __init__(self): #initialsation des composantes graphiques (barres de statistiques, etc...)
         self.list = []
         self.Texture = pygame.image.load('image/popup.png').convert_alpha()
         self.active = False
@@ -15,7 +15,7 @@ class PopupScore():
         self.colorRect2 = (255, 255, 255)
 
 
-    def checkEvent(self):
+    def checkEvent(self): #Vérification de si on clique en dehors de la pop up au quel cas elle s'enlève. Le cas contraire on affiche les scores
         (Mx,My) = pygame.mouse.get_pos()
         buttonpress=pygame.mouse.get_pressed()
         if Mx > 600 or Mx < 200 or My < 130 or My > 470 :
@@ -37,14 +37,14 @@ class PopupScore():
     def getIsActive(self):
         return self.active
 
-    def setStat(self,r1,r2):
+    def setStat(self,r1,r2): #Calcul des pourcentages et placement des rectangles
         self.stat1 = 100*int(r1)/(int(r1)+int(r2))
         self.stat2 = 100*int(r2)/(int(r1)+int(r2))
         print (str(self.stat1) + '   ' + str(self.stat2))
         self.colorRect1 = (155,89,182)
         self.colorRect2 = (230,126,34)
 
-    def display(self,surface):
+    def display(self,surface): #Affichage
         surface.blit(self.Texture, ( 0,0))
         self.ts.display(surface)
         pygame.draw.rect(surface,(self.colorRect1), [220,250,360,80])

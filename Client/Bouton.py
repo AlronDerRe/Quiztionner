@@ -23,13 +23,13 @@ class Bouton:
         self.relache = 0 #Etat du relachement
         self.focus = False
 
-    def checkEvent(self):
+    def checkEvent(self): #Ici on actualise l'état du bouton
         (Mx,My) = pygame.mouse.get_pos() #Coordonné de la position de la souri
         buttonpress=pygame.mouse.get_pressed() #Bouton de la souri appuyé
         if self.relache == 1:
             self.relache = 0
 
-        if Mx > self.posX and Mx < self.posX + self.sizeX/3 and My > self.posY and My < self.posY + self.sizeY : #Si la souri est dans le bouton
+        if Mx > self.posX and Mx < self.posX + self.sizeX/3 and My > self.posY and My < self.posY + self.sizeY : #Si la souris est dans le bouton
             self.currentButton = 2 #Alors le bouton est visualisé
             if pygame.mouse.get_pressed()==(1,0,0): #Si on clique avec le clic gauche
                 self.currentButton = 1 #Alors le bouton est appuyé
@@ -41,7 +41,7 @@ class Bouton:
                 else :
                     self.relache = 0
                 self.clic = 0
-        #elif pygame.mouse.get_pressed()==(1,0,0):
+  
 
         else:
             if pygame.mouse.get_pressed()==(1,0,0):

@@ -40,7 +40,7 @@ class Menu_switsh :
         self.menu_list[self.currentMenu].checkEvent() #Vérifie les évènements du menu actuel
         if self.menu_list[self.currentMenu].getNextChoice() != self.currentMenu : #Si le menu actuel est différent que le menu voulut
             self.currentMenu = self.menu_list[self.currentMenu].getNextChoice() #Le menu actuel devient le menu voulu
-            self.menu_list[self.currentMenu].resetChoice() #Le nouveau menu actuel n’a pas de volonté
+            self.menu_list[self.currentMenu].resetChoice() #Le nouveau menu actuel n’a pas de volonté pour ne pas rechanger directement de menu
 
     def checkEventBis (self,evt):
         self.menu_list[self.currentMenu].checkEventBis(evt)
